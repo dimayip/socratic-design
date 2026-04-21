@@ -1,211 +1,234 @@
 # Socratic Design
 
-> **从模糊想法到决策锁定的设计文档——一个通用、领域无关、自给自足的 Socratic facilitation skill。**
+<p align="left">
+  <a href="./README.md"><b>English</b></a> ·
+  <a href="./README.zh-CN.md">简体中文</a>
+</p>
 
-`socratic-design` 把"做设计"这件事显式化为一套**可重复、可传授**的方法论：当用户带着一个模糊的想法走进来（新产品功能、内部工具、平台改造、AI 能力、数据流水线、工作流、治理机制……），这个 skill 不会立刻输出方案，而是先用 Socratic 追问把**关键决策锁定下来**，再按**真实消费者**选择的 schema（PRD / RFC / Design Doc / Kickoff / ADR / One-Pager）把决策组织成交付物。
+<p align="left">
+  <a href="https://github.com/bellchen/socratic-design/stargazers"><img src="https://img.shields.io/github/stars/bellchen/socratic-design?style=flat-square" alt="Stars"></a>
+  <a href="https://github.com/bellchen/socratic-design/network/members"><img src="https://img.shields.io/github/forks/bellchen/socratic-design?style=flat-square" alt="Forks"></a>
+  <a href="https://github.com/bellchen/socratic-design/issues"><img src="https://img.shields.io/github/issues/bellchen/socratic-design?style=flat-square" alt="Issues"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/github/license/bellchen/socratic-design?style=flat-square" alt="License"></a>
+</p>
 
----
+> **From a vague idea to a decision-locked design document — a general-purpose, domain-agnostic, self-contained Socratic facilitation skill.**
 
-## 定位声明
-
-`socratic-design` 是一个**通用**的 facilitation 框架，**不绑定任何特定领域、技术栈或方法论**。它的价值来自三件事：
-
-1. **提问纪律**——先问再写、每轮一维、A/B/C/D 候选、魔鬼代言人、决策锁定回顾
-2. **依赖排序**——后面的决策依赖前面的决策，按拓扑顺序问，不跳步
-3. **产物 schema 库**——6 类主流设计文档的完整模板，按消费者选形态
-
-它**不提供**任何行业最佳实践判据——那是别的事情，不是这个 skill 要做的。如果你想要基于特定领域方法论的硬性约束来引导设计，那属于另一套工作，本 skill 不负责。
-
----
-
-## 为什么需要这个 skill
-
-绝大多数设计失败都不是"写得不好"，而是**决策还没锁定就开始写**：
-
-- 方案写到一半才发现成功标准没定 → 推倒重来
-- 文档交付后评审问"为什么不是方案 B" → 因为从没显式对比过
-- 给执行团队的 Kickoff 清单粒度太粗 → 跑偏
-- 一份 PRD 想同时服务管理层和开发团队 → 两边都不满意
-- 关键命名（系统名、模块名、核心概念名）被擅自决定 → 后期改不动
-
-`socratic-design` 通过把**决策锁定**和**产物书写**显式分离，并强制决策按依赖拓扑顺序推进，解决上面这一整类问题。
+`socratic-design` turns "doing design" into an explicit, **repeatable, teachable** methodology. When a user walks in with a vague idea (a new product feature, an internal tool, a platform refactor, an AI capability, a data pipeline, a workflow, a governance mechanism…), this skill does **not** immediately produce a solution. Instead, it first uses Socratic questioning to **lock down the key decisions**, then organizes those decisions into whatever schema the **actual consumer** of the deliverable needs (PRD / RFC / Design Doc / Kickoff / ADR / One-Pager).
 
 ---
 
-## 何时触发
+## Positioning
 
-用户的需求有以下任一特征时，就该用这个 skill：
+`socratic-design` is a **general** facilitation framework. It is **not tied to any particular domain, tech stack, or methodology**. Its value comes from three things:
 
-- 想设计一个新产品 / 新功能 / 新系统 / 新流程，但**关键决策还不清楚**（范围、边界、接口、角色、成功标准……）
-- 说"我有个想法"、"帮我想明白"、"帮我把这事理清楚"、"帮我设计 XX"
-- 想要 PRD / RFC / 技术方案 / 设计文档 / Kickoff 清单 / 里程碑规划 / ADR / One-Pager 中的任一种
-- 需要把一个涉及多利益相关方的复杂设计**分节锁定、逐节批准**再交付
+1. **Questioning discipline** — ask before writing, one axis per turn, A/B/C/D candidates, devil's-advocate pass, decision lock-in reviews.
+2. **Dependency ordering** — later decisions depend on earlier ones; ask in topological order, never skip.
+3. **Deliverable schema library** — full templates for 6 mainstream design-document types, pick by consumer.
 
-**什么时候不该用**：用户只是想把**已经想清楚的东西**按固定格式记录下来（比如纯 CRUD 需求文档），按常规模板直接写即可。
-
----
-
-## 最终产物不是"PRD"一种
-
-本 skill 的输出**按真实消费者选择**，不是固定格式：
-
-| 场景 | 建议产物 | 主要消费者 |
-|------|----------|-----------|
-| 从 0 到 1 设计新系统（工程为主） | **Design Doc + Kickoff 清单** | 开发者 + AI coding agent |
-| 产品立项 / 对上汇报 | **PRD + One-Pager** | 产品评审 + 管理层 |
-| 内部技术改造 / 跨团队协作 | **RFC / 技术方案** | 工程团队 + 架构评审 |
-| 需求仍在探索 / 决策未完全锁定 | **ADR + 待办问题清单** | 自己 + 后续推进 |
-| 已有方案需落地 | **里程碑计划 + 分工表** | 执行团队 |
-
-多种产物可以**并行交付**（例如 PRD + One-Pager + Kickoff 三件套，给不同受众看）。详细模板与选择决策树见 [`references/deliverables.md`](./references/deliverables.md)。
+It does **not** provide any domain-specific best-practice judgment — that is a different job and explicitly not in scope for this skill. If you want domain-specific hard constraints to drive the design, that belongs elsewhere.
 
 ---
 
-## 核心方法论：4 层叠加框架
+## Why this skill exists
+
+Most design failures are not about *"bad writing"* — they are about **starting to write before the decisions are locked in**:
+
+- You are halfway through the doc when you realize the success criteria were never defined → rewrite from scratch.
+- A reviewer asks *"why not option B?"* after delivery → because B was never explicitly compared.
+- The Kickoff checklist is too coarse for the execution team → the team drifts off-course.
+- One PRD tries to serve both leadership and engineering → neither audience is satisfied.
+- Critical names (system name, module name, core concept) get decided unilaterally → painful to change later.
+
+`socratic-design` solves this whole class of failure by explicitly **separating decision-locking from writing**, and forcing decisions to progress in dependency-topological order.
+
+---
+
+## When to use it
+
+Use this skill when the user's need has any of these characteristics:
+
+- They want to design a new product / feature / system / workflow, but **key decisions are still unclear** (scope, boundaries, interfaces, roles, success criteria, …).
+- They say *"I have an idea"*, *"help me think this through"*, *"help me make sense of this"*, *"help me design X"*.
+- They want any of: PRD / RFC / technical proposal / design doc / Kickoff checklist / milestone plan / ADR / One-Pager.
+- They need to **lock in and approve a complex multi-stakeholder design section-by-section** before delivery.
+
+**When *not* to use it**: when the user just wants to record **already-settled requirements** in a fixed format (e.g. a pure CRUD spec). Just follow the template directly.
+
+---
+
+## The final deliverable is not just "a PRD"
+
+The output of this skill is **chosen based on the real consumer**, not fixed in advance:
+
+| Scenario | Recommended deliverable | Primary consumer |
+|----------|-------------------------|------------------|
+| New system from scratch (engineering-heavy) | **Design Doc + Kickoff checklist** | Developers + AI coding agent |
+| Product pitch / upward reporting | **PRD + One-Pager** | Product review + leadership |
+| Internal tech refactor / cross-team work | **RFC / technical proposal** | Engineering team + architecture review |
+| Requirements still exploratory | **ADR + open-question list** | Self + follow-up |
+| Existing plan needs execution | **Milestone plan + ownership matrix** | Execution team |
+
+Multiple deliverables can be produced in parallel (e.g. PRD + One-Pager + Kickoff as a bundle, each aimed at a different audience). Templates and a selection decision tree live in [`references/deliverables.md`](./references/deliverables.md).
+
+---
+
+## Core methodology — 4-layer stacked framework
 
 ```
-Layer 1: Capture Context —— 方法论锚点（可选）+ 业务现状 + 产物消费者
+Layer 1: Capture Context — methodology anchor (optional) + current state + deliverable consumer
    ↓
-Layer 2: Brainstorming 纪律（已内化）—— 6 条硬纪律约束节奏
+Layer 2: Brainstorming discipline (internalized) — 6 hard rules that enforce tempo
    ↓
-Layer 3: Socratic 追问 —— A/B/C/D 候选 + 依赖拓扑 + 一致性校验
+Layer 3: Socratic questioning — A/B/C/D candidates + dependency topology + consistency checks
    ↓
-Layer 4: 产物组织 —— 按消费者选 schema，把锁定的决策摆进去
+Layer 4: Deliverable organization — pick schema by consumer, slot in locked decisions
 ```
 
-每一层都不能跳，但强度可按任务复杂度调节。
+Each layer is mandatory, but intensity scales with task complexity.
 
 ### Layer 1 · Capture Context
-一次性问清楚 4 件事：**方法论锚点**（若无可显式声明"无"，不要自己造）、**业务现状关键数字**、**产物形态**、**产物消费者**。然后**复述理解**让用户校验——花 30 秒避免一整轮歧义。
 
-### Layer 2 · 6 条硬纪律（内化在 skill 内部）
-1. 关键决策锁定前不写产物（锁定 → 书写，单向流程）
-2. 每轮只问 1 个维度（避免认知过载）
-3. 方案分节呈现，逐节 Approve
-4. 每 3 轮做一次决策锁定回顾
-5. 关键决策上扮演魔鬼代言人（主动提反驳视角）
-6. 命名不擅自决定（系统名 / 仓库名 / 核心概念名都给候选让用户选）
+Ask four things up front: **methodology anchor** (if none, say so explicitly — don't invent one), **current-state key numbers**, **deliverable form**, and **deliverable consumer**. Then **restate your understanding** so the user can correct you — 30 seconds that prevents an entire round of misalignment.
 
-### Layer 3 · Socratic 追问
-标准提问公式：
+### Layer 2 · 6 hard discipline rules (internalized)
+
+1. Do not write the deliverable until the key decisions are locked (lock → write, one-way flow).
+2. One axis per turn (avoid cognitive overload).
+3. Present the plan section-by-section, approve section-by-section.
+4. Run a decision lock-in review every ~3 turns.
+5. Play devil's advocate on critical decisions (proactively raise counter-views).
+6. Do not auto-decide names (system name, repo name, core concept — always offer candidates).
+
+### Layer 3 · Socratic questioning
+
+Standard question template:
 
 ```
-❓ 关于 <某维度>，有几个候选方案：
+❓ On <axis>, here are the candidates:
 
-A. <方案 A> — <优缺点>
-B. <方案 B> — <优缺点>
-C. <方案 C> — <优缺点>
-D. <方案 D> — <优缺点>
+A. <option A> — <pros/cons>
+B. <option B> — <pros/cons>
+C. <option C> — <pros/cons>
+D. <option D> — <pros/cons>
 
-💡 我的建议：__ （明确倾向 + 为什么）
+💡 My recommendation: __ (stated preference + why)
 
-请问您选哪个？或者排个优先级？
+Which one do you pick, or how would you rank them?
 ```
 
-并且按**依赖拓扑顺序**问——后面的决策依赖前面的决策，警戒信号是用户开始说"这个我还没想好，跟 XX 有关"，说明你问了一个**依赖未满足**的问题，应立即回退到前置依赖项。
+Ask in **dependency-topological order** — later decisions depend on earlier ones. A warning signal is when the user says *"I haven't figured this out yet, it depends on X"* — that means you asked a question whose **dependency wasn't satisfied**, and you should back up to the prerequisite.
 
-每轮用户做完决策后，心里做 3 项一致性校验：**对方法论锚点**、**对先前决策**、**对业务现实**。
+After every locked decision, run 3 consistency checks silently: **against the methodology anchor**, **against prior decisions**, and **against business reality**.
 
-### Layer 4 · 产物组织（6 个 schema）
-决策全部锁定后，按用户选定的产物类型组织：**PRD / Design Doc / RFC / Kickoff Checklist / ADR / One-Pager**。完整 schema 见 [`SKILL.md`](./SKILL.md) 第 Layer 4 节与 [`references/deliverables.md`](./references/deliverables.md)。
+### Layer 4 · Deliverable organization (6 schemas)
+
+Once all decisions are locked, organize them under the user-chosen deliverable type: **PRD / Design Doc / RFC / Kickoff Checklist / ADR / One-Pager**. Full schemas in [`SKILL.md`](./SKILL.md) Layer 4 and [`references/deliverables.md`](./references/deliverables.md).
 
 ---
 
-## 标准工作流
+## Standard workflow
 
 ```
-Step 0  识别是否需要本 skill（30 秒）
+Step 0  Decide whether this skill applies (30 seconds)
    │
    ▼
-Step 1  Capture Context（第 1 轮：现状 + 锚点 + 产物形态 + 消费者，复述校验）
+Step 1  Capture Context (turn 1: current state + anchor + deliverable form + consumer, with restatement)
    │
    ▼
-Step 2  Socratic 追问（N 轮，按依赖拓扑，每 3 轮做一次决策锁定回顾）
+Step 2  Socratic questioning (N turns, dependency-ordered, lock-in review every ~3 turns)
    │
    ▼
-Step 3  方案分节呈现（2–5 节，每节结束问 "approve 还是调整？"）
+Step 3  Section-by-section presentation (2–5 sections, each ends with "approve or adjust?")
    │
    ▼
-Step 4  按选定 schema 组织产物（多产物并行交付 + 说明各自消费者）
+Step 4  Organize the deliverable by chosen schema (ship multiple deliverables in parallel + name each consumer)
    │
    ▼
-Step 5  复盘（可选，强烈推荐）—— 诚实回答"你用了什么框架"
+Step 5  Retrospective (optional but strongly recommended) — answer honestly: "what framework did I actually use?"
 ```
 
 ---
 
-## 仓库结构
+## Repository layout
 
 ```
 socratic-design/
-├── SKILL.md                               # 完整 skill 规范——4 层框架 + 6 纪律 + 工作流 + 反模式
-├── README.md                              # （本文件）面向人类的入口与总览
-├── assets/                                # 预留：后续可放架构图、流程图等配图
+├── SKILL.md                               # Full skill spec — 4-layer framework + 6 discipline rules + workflow + anti-patterns
+├── README.md                              # (this file) overview for humans browsing the repo
+├── README.zh-CN.md                        # Chinese translation
+├── assets/                                # reserved for diagrams and visuals
 └── references/
-    ├── decision-checklists.md             # 按系统类型的决策清单
-    └── deliverables.md                    # 6 类产物（PRD / Design Doc / RFC / Kickoff / ADR / One-Pager）详细模板与选择决策树
+    ├── decision-checklists.md             # per-system-type decision checklists
+    └── deliverables.md                    # full templates for 6 deliverable types (PRD / Design Doc / RFC / Kickoff / ADR / One-Pager) + selection decision tree
 ```
 
-- **[`SKILL.md`](./SKILL.md)** — Canonical spec。AI agent 真正加载执行的文件。想用或想移植这个 skill 从这里入手。
-- **[`references/decision-checklists.md`](./references/decision-checklists.md)** — Socratic 追问时**不遗漏关键维度**的清单。按系统类型分块，加上成本、风险、命名 3 个通用维度。
-- **[`references/deliverables.md`](./references/deliverables.md)** — 6 类产物的完整模板 + Capture 阶段的产物选择决策树。**这是 Layer 4 书写阶段的弹药库。**
+- **[`SKILL.md`](./SKILL.md)** — Canonical spec. The file an AI agent actually loads to operate. Start here if you want to use or port the skill.
+- **[`references/decision-checklists.md`](./references/decision-checklists.md)** — Checklists to make sure Socratic questioning **does not miss any critical axis**. Broken down by system type, plus three universal axes: cost, risk, naming.
+- **[`references/deliverables.md`](./references/deliverables.md)** — Full templates for the 6 deliverable types + Capture-phase selection decision tree. **This is the ammunition for Layer 4.**
 
 ---
 
-## 反模式（绝对不要做）
+## Anti-patterns (do not do these)
 
-| ❌ 反模式 | ✅ 正确做法 |
-|----------|-----------|
-| 用户刚说完想法，立即输出整套方案 | 先 Capture Context，再 Socratic 追问 |
-| 一次问 5 个维度 | 每轮只问 1 个维度 |
-| 用开放式问题（"你希望怎么设计？"） | 用 A/B/C/D 候选 + 推荐 + 理由 |
-| 接受决策不做一致性校验 | 每轮都对照方法论和先前决策校验 |
-| 方案一次性甩给用户 | 分节呈现，逐节 Approve |
-| 用 MUST / NEVER 硬约束 | 用"因为 X 所以建议 Y"的理由式表述 |
-| 跳过锁定直接写文档 | 先锁再写，单向流程 |
-| 擅自命名仓库 / 模块 / 概念 | 给 2–3 个候选让用户选 |
-| 假定用户一定要 PRD | 先问清楚产物形态 |
-| 依赖其他 skill 做最终产出 | 本 skill 自给自足，直接按 Layer 4 schema 输出 |
-
----
-
-## 自给自足原则（为什么不拆成多个 skill）
-
-`socratic-design` 内化了 Socratic brainstorming 纪律 + 6 类主流文档的 schema 知识，**不依赖其他 skill**。原因：
-
-1. **完整方法论在一个 skill 内**便于传授、演化、复盘；
-2. **避免调度失败风险**——依赖的外部 skill 未命中触发条件，整条链就断了；
-3. **允许跨阶段引用**——Capture 阶段锁定的决策，Layer 4 书写阶段能直接使用，不丢上下文。
+| ❌ Anti-pattern | ✅ Correct move |
+|----------------|----------------|
+| Start writing the plan the moment the user finishes speaking | Capture Context first, then Socratic |
+| Ask about 5 axes per turn | One axis per turn |
+| Use open-ended questions (*"how would you design this?"*) | Use A/B/C/D candidates + a recommendation + reasoning |
+| Accept a decision with no consistency check | Every turn, verify against anchor + prior decisions |
+| Hand over the full plan in one shot | Section-by-section, approve each section |
+| Use MUST / NEVER hard constraints | Use *"because X, I suggest Y"* reasoning |
+| Skip lock-in and start writing | Lock first, write after — strictly one-way |
+| Auto-decide a repo / module / concept name | Offer 2–3 candidates, let the user pick |
+| Assume the user wants a PRD by default | Ask which deliverable form first |
+| Delegate the final write-up to another skill | This skill is self-contained; write directly via Layer 4 |
 
 ---
 
-## 如何在 AI agent 中使用这个 skill
+## Self-contained by design
 
-支持 skill 加载的平台（CodeBuddy / Claude skills 等）：
+`socratic-design` internalizes Socratic brainstorming discipline + the schema knowledge for 6 mainstream document types, and **does not depend on other skills**. Why:
 
-1. 把整个目录放到平台的 skills 文件夹下（例如 `.codebuddy/skills/socratic-design/`）；
-2. 当用户的请求匹配 skill 描述（"帮我设计 XX"、"help me think this through"、想要 PRD/RFC/Design Doc/Kickoff/ADR/One-Pager 等）时，agent 会自动加载 `SKILL.md`；
-3. `references/` 下的文件**按需加载**——agent 只在当前对话真正需要决策清单或产物模板时才读，让 `SKILL.md` 本身保持精简。
-
-如果你是想自己当 facilitator：完整读一遍 `SKILL.md` 把 6 条纪律内化，把两份 reference 文件在对话时开在旁边随时查。
+1. **Keeping the complete methodology in one skill** makes it easier to teach, evolve, and retrospect on.
+2. **Eliminates orchestration risk** — if an external dependency fails to trigger, the whole chain breaks.
+3. **Allows cross-phase references** — decisions locked in the Capture phase can be used directly in the Layer 4 write-up without losing context.
 
 ---
 
-## 元原则
+## How to use this skill with an AI agent
 
-> **本 skill 最重要的不是让 Agent 更会"写"，而是让 Agent 更会"问"。**
+On platforms that support skill loading (CodeBuddy, Claude skills, or similar):
+
+1. Place this directory under the platform's skills folder (e.g. `.codebuddy/skills/socratic-design/`).
+2. When the user's request matches the skill description (*"help me design X"*, *"help me think this through"*, wanting a PRD / RFC / Design Doc / Kickoff / ADR / One-Pager, …), the agent loads `SKILL.md` automatically.
+3. Files under `references/` are loaded **on demand** — the agent pulls them only when the current turn genuinely needs the decision checklist or a deliverable template, keeping `SKILL.md` itself lean.
+
+If you want to use it as a human facilitator: read `SKILL.md` end-to-end once, internalize the 6 discipline rules, and keep both reference files open during the conversation.
+
+---
+
+## Meta principle
+
+> **The point of this skill is not to make an agent better at *writing* — it's to make an agent better at *asking*.**
 >
-> 因为 **好问题 = 好决策 = 好产物**（无论它最终是 PRD、RFC、Design Doc 还是别的）。
-> 用户永远是决策的所有者，Agent 只是帮助用户把决策表达出来。
+> Because **good questions = good decisions = good deliverables** (whether the output is a PRD, RFC, Design Doc, or something else).
+> The user always owns the decisions — the agent just helps the user express them.
+
+---
+
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=bellchen/socratic-design&type=Date)](https://star-history.com/#bellchen/socratic-design&Date)
 
 ---
 
 ## License
 
-除非单独文件另有说明，本仓库内容遵循 MIT License。详见仓库中的 `LICENSE`（若有）。
+Unless noted otherwise in individual files, content in this repository is released under the MIT License. See [`LICENSE`](./LICENSE).
 
 ---
 
 ## Credits
 
-由 [@bellchen](https://github.com/bellchen) 设计并维护。融合了 Socratic 引导纪律、依赖拓扑排序、决策一致性校验，以及主流设计文档体系（PRD / RFC / ADR / Design Doc / Kickoff / One-Pager），最终压缩成一套**可在真实对话里跑起来**、**领域无关**的规则集。
+Designed and maintained by [@bellchen](https://github.com/bellchen). Combines Socratic facilitation discipline, dependency-topological ordering, decision consistency checks, and mainstream design-document systems (PRD / RFC / ADR / Design Doc / Kickoff / One-Pager), compressed into a rule set that **actually runs inside a real conversation** and is **domain-agnostic**.
