@@ -6,10 +6,10 @@
 </p>
 
 <p align="left">
-  <a href="https://github.com/bellchen/socratic-design/stargazers"><img src="https://img.shields.io/github/stars/bellchen/socratic-design?style=flat-square" alt="Stars"></a>
-  <a href="https://github.com/bellchen/socratic-design/network/members"><img src="https://img.shields.io/github/forks/bellchen/socratic-design?style=flat-square" alt="Forks"></a>
-  <a href="https://github.com/bellchen/socratic-design/issues"><img src="https://img.shields.io/github/issues/bellchen/socratic-design?style=flat-square" alt="Issues"></a>
-  <a href="./LICENSE"><img src="https://img.shields.io/github/license/bellchen/socratic-design?style=flat-square" alt="License"></a>
+  <a href="https://github.com/dimayip/socratic-design/stargazers"><img src="https://img.shields.io/github/stars/dimayip/socratic-design?style=flat-square" alt="Stars"></a>
+  <a href="https://github.com/dimayip/socratic-design/network/members"><img src="https://img.shields.io/github/forks/dimayip/socratic-design?style=flat-square" alt="Forks"></a>
+  <a href="https://github.com/dimayip/socratic-design/issues"><img src="https://img.shields.io/github/issues/dimayip/socratic-design?style=flat-square" alt="Issues"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/github/license/dimayip/socratic-design?style=flat-square" alt="License"></a>
 </p>
 
 > **从模糊想法到决策锁定的设计文档——一个通用、领域无关、自给自足的 Socratic facilitation skill。**
@@ -220,7 +220,7 @@ socratic-design/
 
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=bellchen/socratic-design&type=Date)](https://star-history.com/#bellchen/socratic-design&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=dimayip/socratic-design&type=Date)](https://star-history.com/#dimayip/socratic-design&Date)
 
 ---
 
