@@ -231,4 +231,4 @@ Unless noted otherwise in individual files, content in this repository is releas
 
 ## Credits
 
-Designed and maintained by [@bellchen](https://github.com/bellchen). Combines Socratic facilitation discipline, dependency-topological ordering, decision consistency checks, and mainstream design-document systems (PRD / RFC / ADR / Design Doc / Kickoff / One-Pager), compressed into a rule set that **actually runs inside a real conversation** and is **domain-agnostic**.
+Designed and maintained by [@dimayip](https://github.com/dimayip). Combines Socratic facilitation discipline, dependency-topological ordering, decision consistency checks, and mainstream design-document systems (PRD / RFC / ADR / Design Doc / Kickoff / One-Pager), compressed into a rule set that **actually runs inside a real conversation** and is **domain-agnostic**.

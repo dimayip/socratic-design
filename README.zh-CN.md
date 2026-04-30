@@ -226,7 +226,7 @@ socratic-design/
 
 ## Credits
 
-由 [@bellchen](https://github.com/bellchen) 设计并维护。融合了 Socratic 引导纪律、依赖拓扑排序、决策一致性校验，以及主流设计文档体系（PRD / RFC / ADR / Design Doc / Kickoff / One-Pager），最终压缩成一套**可在真实对话里跑起来**、**领域无关**的规则集。
+由 [@dimayip](https://github.com/dimayip) 设计并维护。融合了 Socratic 引导纪律、依赖拓扑排序、决策一致性校验，以及主流设计文档体系（PRD / RFC / ADR / Design Doc / Kickoff / One-Pager），最终压缩成一套**可在真实对话里跑起来**、**领域无关**的规则集。
 
 ---
 
